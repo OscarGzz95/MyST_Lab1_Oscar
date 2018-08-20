@@ -19,10 +19,23 @@ Quandl.api_key("DyhrLtT5MsaKtMXoK9zi")
 
 #Crear funciones -> nombre<-function(parámetros){que quieres que haga}
 
-Bajar_precios <- function(Columns, Tickers, Fecha_In, Fecha_Fn){
+Bajar_precios <- function(Columns, Ticker, Fecha_In, Fecha_Fn){
   
   
   Datos <- Quandl.datatable(code="WIKI/PRICES", qopts.columns=Columns,
-                            ticker=Tikers,date.gte=Fecha_In, date.lte=Fecha_Fn)
+                            ticker=Tiker,date.gte=Fecha_In, date.lte=Fecha_Fn)
   return(Datos)
 }
+
+
+tk <- c("TSLA","BBY","HD") #Datos a solicitar
+cs <- c("date","adj_close")
+
+fs <- c("2015-08-01","2016-08-01")
+
+Datos <- list()
+for(i in 1:length(tk)){
+  Datos[[i]] <- Bajar_precios(Columns=cs, Ticker=tk[i], Fecha_In=fs[1], Fecha_Fn=fs[2])
+}
+
+names(Datos) <- tk
